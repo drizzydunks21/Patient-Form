@@ -1,0 +1,62 @@
+//convert.js
+
+let saveFile = () => {
+
+  // Get the selected buttons
+  var selectedButtons = document.getElementsByClassName("size-selected");
+  // Create a string to store the button content
+  var content = "";
+  // Loop through the selected buttons and concatenate their content
+  for (var i = 0; i < selectedButtons.length; i++) {
+    content += selectedButtons[i].textContent;
+  }
+  // Get the data from each element on the form.
+  const name = document.getElementById('fullName');
+  const age = document.getElementById('DOB');
+  const email = document.getElementById('EAddress');
+  const country = document.getElementById('location');
+  const msg = document.getElementById('reason');
+  const gender = document.getElementById('gender');
+  const number = document.getElementById('number');
+  const insurance = document.getElementById('insurance');
+  const street = document.getElementById('SAddress');
+  const signature = document.getElementById('signature');
+  const date = document.getElementById('date');
+
+  // This variable stores all the data.
+  // data is string so that we can convert the whole string to BLOB object
+  let data = 
+      '\r Name: ' + name.value + ' \r\n ' + 
+      'Age: ' +age.value + ' \r\n ' + 
+      'Email: ' + email.value + ' \r\n ' + 
+      'Street: ' + street.value + '\r\n' + 
+      'City, State: ' + country.value + ' \r\n ' +
+      'Gender: ' + gender.value + '\r\n' + 
+      'Number: ' + number.value + '\r\n' + 
+      'Insurance: ' + insurance.value + '\r\n' + 
+      'Signature: ' + signature.value + '\r\n' + 
+      'Date: ' + date.value + '\r\n\r' +   
+      'Message: ' + msg.value + '\r\n\r' +
+      'History: ';
+
+  // Convert the text to BLOB (Binary Large Object).
+  const textToBLOB = new Blob([data, content], { type: 'text/plain' });
+  const sFileName = 'formData.txt';	   // The file to save the data.
+
+  let newLink = document.createElement("a"); //creating a Link (the anchor tag)
+  newLink.download = sFileName; //assign the text file as the link's download property
+
+  //Since link is created, we assign the BLOB object as the href (URL) to the newly created Link tag
+  if (window.webkitURL != null) {
+    newLink.href = window.webkitURL.createObjectURL(textToBLOB);
+  //   console.log (newLink);    // add this line and see the result in your browser's console window.
+  }
+  else {
+    newLink.href = window.URL.createObjectURL(textToBLOB);
+    newLink.style.display = "none";
+    document.body.appendChild(newLink);
+  }
+
+  //downloads the file containing the data in your local hard disc
+  newLink.click(); 
+}
