@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Get the current directory
+current_dir=$(pwd)
+
+# Change to the download directory
+cd ../../Downloads
+
+# Read the content of the file
+content=$(cat formData*)
+
+# Change to the current directory
+cd $current_dir
+
+# Open the database file in append mode
+echo "$content" >> database.txt
+
